@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import Contatos from './pages/Contatos'
+import PlanoRetorno from './pages/PlanoRetorno'
 import useTheme from './hooks/useTheme'
 import { ToastContainer } from 'react-toastify'
 import { exportAllDataToXLSX } from './utils/exportXLS'
 
-const TABS = ['Contatos']
+const TABS = ['Contatos', 'Plano de Retorno']
 
 export default function App() {
   const { theme, toggleTheme } = useTheme()
@@ -46,7 +47,8 @@ export default function App() {
         </div>
                 
         <div>
-          {activeTab === 'Contatos' && <Contatos />}          
+          {activeTab === 'Contatos' && <Contatos />}        
+          {activeTab === 'Plano de Retorno' && <PlanoRetorno />}  
         </div>
       </div>
       <ToastContainer position="top-right" autoClose={3000} />
