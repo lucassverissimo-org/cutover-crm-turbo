@@ -1,4 +1,4 @@
-import React, { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
+import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
 import { supabase } from '../supabase/client'
 
 export type ContatoGridHandle = {

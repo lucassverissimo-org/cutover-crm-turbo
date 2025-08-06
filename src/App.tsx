@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Contatos from './pages/Contatos'
 import useTheme from './hooks/useTheme'
 import { ToastContainer } from 'react-toastify'
