@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
-import { supabase } from '../supabase/client'
+import { supabase } from '../../supabase/client'
 
 export default function ContatoForm({ onSaved }: { onSaved?: () => void }) {
   const { register, handleSubmit, reset } = useForm()

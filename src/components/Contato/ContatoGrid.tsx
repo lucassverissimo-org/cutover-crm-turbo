@@ -1,5 +1,5 @@
 import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
-import { supabase } from '../supabase/client'
+import { supabase } from '../../supabase/client'
 
 export type ContatoGridHandle = {
   reload: () => void

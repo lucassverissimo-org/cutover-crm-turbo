@@ -1,7 +1,7 @@
 
 import { useRef } from 'react'
-import ContatoForm from '../components/ContatoForm'
-import ContatoGrid, { type ContatoGridHandle } from '../components/ContatoGrid'
+import ContatoForm from '../components/Contato/ContatoForm'
+import ContatoGrid, { type ContatoGridHandle } from '../components/Contato/ContatoGrid'
 
 export default function Contatos() {
   const gridRef = useRef<ContatoGridHandle>(null)
