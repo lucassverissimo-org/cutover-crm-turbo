@@ -1,10 +1,11 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import FormularioGenerico from '../components/compartilhado/FormularioGenerico'
 import TabelaGenerica, { type TabelaGenericaRef } from '../components/compartilhado/TabelaGenerica'
 import { supabase } from '../supabase/client'
 
 export default function PlanoRetorno() {
   const refTabela = useRef<TabelaGenericaRef>(null)
+  const [dadosEdicao, setDadosEdicao] = useState<Record<string, string> | null>(null)
   const tabela = 'plano_retorno'
 
   const campos = [
@@ -26,11 +27,27 @@ export default function PlanoRetorno() {
   }))
 
   const salvarPlano = async (dados: Record<string, string>) => {
-    if (supabase == null){
-      return;
+    if (supabase == null) return;
+
+    if (dados.id) {
+      const { error } = await supabase.from(tabela).update(dados).eq('id', dados.id)
+      if (error) throw error
+    } else {
+      const { error } = await supabase.from(tabela).insert(dados)
+      if (error) throw error
     }
 
-    const { error } = await supabase.from(tabela).insert(dados)
+    setDadosEdicao(null)
+    refTabela.current?.recarregar()
+  }
+
+  const editarPlano = (registro: any) => {
+    setDadosEdicao(registro)
+  }
+
+  const deletarPlano = async (registro: any) => {
+    if (!confirm('Deseja realmente deletar?')) return
+    const { error } = await supabase!.from(tabela).delete().eq('id', registro.id)
     if (error) throw error
     refTabela.current?.recarregar()
   }
@@ -39,12 +56,18 @@ export default function PlanoRetorno() {
     <div className="space-y-10">
       <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6">
         <h2 className="text-2xl font-bold mb-4">📝 Cadastro</h2>
-        <FormularioGenerico campos={campos} onSalvar={salvarPlano} />
+        <FormularioGenerico campos={campos} onSalvar={salvarPlano} dadosEdicao={dadosEdicao} />
       </div>
 
       <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6">
         <h2 className="text-2xl font-bold mb-4">📃 Lista</h2>
-        <TabelaGenerica tabela={tabela} colunas={colunas} ref={refTabela} />
+        <TabelaGenerica
+          tabela={tabela}
+          colunas={colunas}
+          ref={refTabela}
+          onEditar={editarPlano}
+          onDeletar={deletarPlano}
+        />
       </div>
     </div>
   )

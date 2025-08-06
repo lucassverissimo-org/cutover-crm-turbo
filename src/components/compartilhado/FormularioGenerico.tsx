@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 export interface CampoFormulario {
@@ -11,13 +12,23 @@ export interface CampoFormulario {
 interface FormularioGenericoProps {
   campos: CampoFormulario[]
   onSalvar: (dados: Record<string, string>) => Promise<void> | void
+  dadosEdicao?: Record<string, string> | null
 }
 
-export default function FormularioGenerico({ campos, onSalvar }: FormularioGenericoProps) {
-  const { register, handleSubmit, reset } = useForm()
+export default function FormularioGenerico({ campos, onSalvar, dadosEdicao }: FormularioGenericoProps) {
+  const { register, handleSubmit, reset, setValue } = useForm()
+
+  useEffect(() => {
+    if (dadosEdicao) {
+      Object.entries(dadosEdicao).forEach(([key, value]) => {
+        setValue(key, value)
+      })
+    } else {
+      reset()
+    }
+  }, [dadosEdicao, setValue, reset])
 
   const aoSubmeter = async (dados: any) => {
-    // Validação manual básica para obrigatórios
     for (const campo of campos) {
       if (campo.obrigatorio && !dados[campo.nome]) {
         toast.error(`O campo "${campo.rotulo}" é obrigatório`)
@@ -37,24 +48,27 @@ export default function FormularioGenerico({ campos, onSalvar }: FormularioGener
 
   return (
     <form onSubmit={handleSubmit(aoSubmeter)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {campos.map(({ nome, rotulo, tipo = 'texto' }) =>
-        tipo === 'area' ? (
-          <textarea
-            key={nome}
-            {...register(nome)}
-            placeholder={rotulo}
-            className="input md:col-span-2"
-          />
-        ) : (
-          <input
-            key={nome}
-            type={tipo === 'data' ? 'date' : 'text'}
-            {...register(nome)}
-            placeholder={rotulo}
-            className="input"
-          />
-        )
-      )}
+      {campos.map(({ nome, rotulo, tipo = 'texto' }) => (
+        <div key={nome} className={tipo === 'area' ? "md:col-span-2 flex flex-col" : "flex flex-col"}>
+          <label htmlFor={nome} className="mb-1 font-medium text-sm text-gray-700 dark:text-gray-300">
+            {rotulo}
+          </label>
+          {tipo === 'area' ? (
+            <textarea
+              id={nome}
+              {...register(nome)}
+              className="input"
+            />
+          ) : (
+            <input
+              id={nome}
+              type={tipo === 'data' ? 'date' : 'text'}
+              {...register(nome)}
+              className="input"
+            />
+          )}
+        </div>
+      ))}
       <div className="md:col-span-2">
         <button type="submit" className="button w-full">💾 Salvar</button>
       </div>
