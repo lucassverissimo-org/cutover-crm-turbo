@@ -1,4 +1,3 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { supabase } from '../../supabase/client'
 import { toast } from 'react-toastify'
