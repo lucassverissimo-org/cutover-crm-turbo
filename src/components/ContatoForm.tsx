@@ -1,31 +1,26 @@
-import React from 'react'
+import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import { supabase } from '../supabase/client'
 
-export default function ContatoForm() {
+export default function ContatoForm({ onSaved }: { onSaved?: () => void }) {
   const { register, handleSubmit, reset } = useForm()
 
   const onSubmit = async (data: any) => {
-    if (!supabase) {
-      alert('Supabase não está configurado!')
-      return
-    }
+    if (!supabase) return
 
     const { error } = await supabase.from('contatos').insert(data)
-    if (error) alert('Erro ao salvar')
-    else {
-      alert('Contato salvo!')
+    if (error) {
+      toast.error('Erro ao salvar contato!')
+    } else {
+      toast.success('Contato salvo com sucesso!')
       reset()
+      onSaved?.()
     }
-  }
-
-  if (!supabase) {
-    return <p className="text-red-500">⚠️ Supabase não configurado.</p>
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input {...register('nome')} placeholder="Nome Completo" className="input" />
+    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">      
+      <input {...register('nome')} placeholder="Nome" className="input" />
       <input {...register('empresa')} placeholder="Empresa" className="input" />
       <input {...register('papel_projeto')} placeholder="Papel no Projeto" className="input" />
       <input {...register('email')} placeholder="E-mail" className="input" />

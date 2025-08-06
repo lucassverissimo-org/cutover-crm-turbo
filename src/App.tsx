@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Contatos from './pages/Contatos'
 import useTheme from './hooks/useTheme'
+import { ToastContainer } from 'react-toastify'
 
 const TABS = ['Contatos']
 
@@ -41,6 +42,7 @@ export default function App() {
           {activeTab === 'Contatos' && <Contatos />}          
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </main>
   )
 }
