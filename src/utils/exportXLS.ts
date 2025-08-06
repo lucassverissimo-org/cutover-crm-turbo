@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver'
 
 export async function exportAllDataToXLSX() {
   const workbook = XLSX.utils.book_new()
-  const tables = ['contatos', 'plano_retorno']
+  const tables = ['contatos', 'plano_retorno', 'relacao_estorias']
   
   if (supabase == null){
     return;
