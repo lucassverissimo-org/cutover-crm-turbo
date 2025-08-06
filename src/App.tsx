@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Contatos from './pages/Contatos'
 import useTheme from './hooks/useTheme'
 import { ToastContainer } from 'react-toastify'
+import { exportAllDataToXLSX } from './utils/exportXLS'
 
 const TABS = ['Contatos']
 
@@ -14,6 +15,12 @@ export default function App() {
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">CRM - Plano de Cutover</h1>
+          <button
+            onClick={exportAllDataToXLSX}
+            className="px-4 py-2 rounded-md bg-green-600 text-white text-sm font-medium hover:bg-green-700 transition"
+          >
+            📤 Exportar XLS
+          </button>
           <button
             onClick={toggleTheme}
             className="px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-800 text-sm font-medium dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 transition"
