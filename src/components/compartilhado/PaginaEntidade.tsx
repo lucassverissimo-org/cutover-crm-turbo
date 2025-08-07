@@ -1,3 +1,4 @@
+// src/components/compartilhado/PaginaEntidade.tsx
 import { useRef, useState } from 'react'
 import FormularioGenerico, { type CampoFormulario } from './FormularioGenerico'
 import TabelaGenerica, { type TabelaGenericaRef } from './TabelaGenerica'
@@ -13,6 +14,7 @@ interface PaginaEntidadeProps {
 export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_grid, campos }: PaginaEntidadeProps) {
   const refTabela = useRef<TabelaGenericaRef>(null)
   const [dadosEdicao, setDadosEdicao] = useState<Record<string, string> | null>(null)
+  const [formAberto, setFormAberto] = useState(false)
 
   const colunas = campos.map(c => ({
     chave: c.nome,
@@ -32,10 +34,14 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
     }
 
     setDadosEdicao(null)
+    setFormAberto(false)
     refTabela.current?.recarregar()
   }
 
-  const editar = (registro: any) => setDadosEdicao(registro)
+  const editar = (registro: any) => {
+    setDadosEdicao(registro)
+    setFormAberto(true)
+  }
 
   const deletar = async (registro: any) => {
     if (!confirm('Deseja realmente deletar?')) return
@@ -47,8 +53,22 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
   return (
     <div className="space-y-10">
       <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6">
-        <h2 className="text-2xl font-bold mb-4">📝 {rotulo_formulario}</h2>
-        <FormularioGenerico campos={campos} onSalvar={salvar} dadosEdicao={dadosEdicao} />
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">{rotulo_formulario}</h2>
+          <button
+            onClick={() => {
+              setDadosEdicao(null)
+              setFormAberto(!formAberto)
+            }}
+            className="text-sm px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
+          >
+            {formAberto ? '❌ Fechar' : '➕ Novo Registro'}
+          </button>
+        </div>
+
+        {formAberto && (
+          <FormularioGenerico campos={campos} onSalvar={salvar} dadosEdicao={dadosEdicao} />
+        )}
       </div>
 
       <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6">

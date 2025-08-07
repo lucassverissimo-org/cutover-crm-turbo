@@ -4,7 +4,7 @@ export default function CargaDados() {
   return (
     <PaginaEntidade
       nome_tabela="carga_dados"
-      rotulo_formulario="Cadastro de Cargas de dados"
+      rotulo_formulario="Cargas de dados"
       rotulo_grid="Lista"
       campos={[        
         { nome: 'estoria_relacionada', rotulo: 'Estória Relacionada', tipo: 'texto', obrigatorio: true},

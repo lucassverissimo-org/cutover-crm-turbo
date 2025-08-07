@@ -4,7 +4,7 @@ export default function PlanoRetorno() {
   return (
     <PaginaEntidade
       nome_tabela="plano_retorno"
-      rotulo_formulario="Cadastro"
+      rotulo_formulario="Plano Retorno"
       rotulo_grid="Lista"
       campos={[        
         { nome: 'step', rotulo: 'Step', tipo: 'texto', obrigatorio: true },

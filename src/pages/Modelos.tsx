@@ -4,8 +4,8 @@ export default function Modelos() {
   return (
     <PaginaEntidade
       nome_tabela="modelos"
-      rotulo_formulario="Cadastro Modelos (Email / Documentos / Relatórios)"
-      rotulo_grid="Lista de Modelos"
+      rotulo_formulario="Modelos (Email / Documentos / Relatórios)"
+      rotulo_grid="Lista"
       campos={[        
         { nome: 'estoria', rotulo: 'Estória Relacionada', tipo: 'texto', obrigatorio: true },
         { nome: 'nome_modelo', rotulo: 'Nome do Modelo', tipo: 'texto', obrigatorio: false },

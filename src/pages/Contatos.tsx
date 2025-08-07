@@ -4,8 +4,8 @@ export default function Contatos() {
   return (
     <PaginaEntidade
       nome_tabela="contatos"
-      rotulo_formulario="Cadastro Contatos"
-      rotulo_grid="Lista de Contatos"
+      rotulo_formulario="Contatos"
+      rotulo_grid="Lista"
       campos={[        
         { nome: 'nome', rotulo: 'Nome', tipo: 'texto', obrigatorio: true },
         { nome: 'empresa', rotulo: 'Empresa', tipo: 'texto'},
