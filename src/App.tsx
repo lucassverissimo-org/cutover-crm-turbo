@@ -9,6 +9,7 @@ import CargaDados from './pages/CargaDados'
 import Modelos from './pages/Modelos'
 import Plugins from './pages/Plugins'
 import RecursosWeb from './pages/RecursosWeb'
+import { Download, Moon, Sun } from 'lucide-react'
 
 const TABS = [
   'Contatos', 
@@ -27,19 +28,19 @@ export default function App() {
   return (
     <main className="min-h-screen bg-background dark:bg-gray-900 text-gray-900 dark:text-white p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between mb-6">
           <h1 className="text-3xl font-bold">CRM - Plano de Cutover</h1>
           <button
             onClick={exportAllDataToXLSX}
-            className="px-4 py-2 rounded-md bg-green-600 text-white text-sm font-medium hover:bg-green-700 transition"
+            className="flex justify-between items-center gap-2 px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-green-700 transition"
           >
-            📤 Exportar XLS
+            <Download size={20} strokeWidth={2} /> Exportar
           </button>
           <button
             onClick={toggleTheme}
             className="px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-800 text-sm font-medium dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 transition"
           >
-            {theme === 'light' ? '🌙 Modo Escuro' : '☀️ Modo Claro'}
+            {theme === 'light' ? (<Moon size={14}/>) : (<Sun size={14} />)}
           </button>
         </div>
         
@@ -50,8 +51,8 @@ export default function App() {
               onClick={() => setActiveTab(tab)}
               className={`py-2 px-4 -mb-px border-b-2 text-sm font-medium transition ${
                 activeTab === tab
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-gray-500 hover:text-primary'
+                  ? 'border-primary text-primary bg-blue-100 rounded-md'
+                  : 'border-transparent text-gray-500 hover:text-primary rounded-md'
               }`}
             >
               {tab}

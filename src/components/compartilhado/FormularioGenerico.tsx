@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
+import { Save } from 'lucide-react'
 
 export interface CampoFormulario {
   nome: string
@@ -70,7 +71,7 @@ export default function FormularioGenerico({ campos, onSalvar, dadosEdicao }: Fo
         </div>
       ))}
       <div className="md:col-span-2">
-        <button type="submit" className="button w-full">💾 Salvar</button>
+        <button type="submit" className="button flex justify-between items-center gap-2"><Save size={20} /> Salvar</button>
       </div>
     </form>
   )

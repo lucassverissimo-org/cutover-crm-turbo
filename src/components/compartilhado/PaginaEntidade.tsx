@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import FormularioGenerico, { type CampoFormulario } from './FormularioGenerico'
 import TabelaGenerica, { type TabelaGenericaRef } from './TabelaGenerica'
 import { supabase } from '../../supabase/client'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 
 interface PaginaEntidadeProps {
   nome_tabela: string
@@ -15,6 +16,7 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
   const refTabela = useRef<TabelaGenericaRef>(null)
   const [dadosEdicao, setDadosEdicao] = useState<Record<string, string> | null>(null)
   const [formAberto, setFormAberto] = useState(false)
+  const [estadoFormAnterior, setEstadoFormAnterior] = useState(false)
 
   const colunas = campos.map(c => ({
     chave: c.nome,
@@ -28,19 +30,20 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
     if (dados.id) {
       const { error } = await supabase.from(nome_tabela).update(dados).eq('id', dados.id)
       if (error) throw error
+      setFormAberto(estadoFormAnterior)
     } else {
       const { error } = await supabase.from(nome_tabela).insert(dados)
       if (error) throw error
     }
 
     setDadosEdicao(null)
-    //setFormAberto(false)
     refTabela.current?.recarregar()
   }
 
   const editar = (registro: any) => {
     setDadosEdicao(registro)
-    setFormAberto(true)
+    setEstadoFormAnterior(formAberto)
+    setFormAberto(true)    
   }
 
   const deletar = async (registro: any) => {
@@ -67,9 +70,14 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
               setDadosEdicao(null)
               setFormAberto(!formAberto)
             }}
-            className="text-sm px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
+            className="text-sm px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 transition "
           >
-            {formAberto ? '❌ Fechar' : '➕ Novo Registro'}
+            {formAberto ? (
+              <div className="flex justify-between items-center gap-2 ">Fechar <ChevronUp /> </div>
+            ) : (
+              <div className="flex justify-between items-center gap-2 ">Novo <ChevronDown /> </div>
+            )
+            }
           </button>
         </div>
 

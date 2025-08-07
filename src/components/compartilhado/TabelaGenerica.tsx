@@ -1,7 +1,7 @@
 import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
 import { supabase } from '../../supabase/client'
 import { dataExtenso, dataFormatada } from '../../utils/formatarData'
-import { Edit3, Trash2 } from 'lucide-react'
+import { Edit3, RefreshCw, Trash2 } from 'lucide-react'
 
 export type TabelaGenericaRef = {
   recarregar: () => void
@@ -55,9 +55,9 @@ const TabelaGenerica = forwardRef<TabelaGenericaRef, TabelaGenericaProps>(
         <div className="flex justify-between mb-2 items-center">
           <button
             onClick={buscarDados}
-            className="text-sm bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-3 py-1 rounded"
+            className="flex justify-between items-center gap-2 text-sm bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-3 py-1 rounded"
           >
-            🔄 Atualizar
+            <RefreshCw size={20} /> Atualizar
           </button>
           {onExcluirMultiplos && selecionados.size > 0 && (
             <button
