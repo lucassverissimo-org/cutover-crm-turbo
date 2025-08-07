@@ -6,12 +6,14 @@ import { ToastContainer } from 'react-toastify'
 import { exportAllDataToXLSX } from './utils/exportXLS'
 import RelacaoEstorias from './pages/RelacaoEstorias'
 import CargaDados from './pages/CargaDados'
+import Modelos from './pages/Modelos'
 
 const TABS = [
   'Contatos', 
   'Plano de Retorno', 
   'Relação de Estórias',
-  'Carga de Dados'
+  'Carga de Dados',
+  'Modelos'
 ]
 
 export default function App() {
@@ -58,6 +60,7 @@ export default function App() {
           {activeTab === 'Plano de Retorno' && <PlanoRetorno />}  
           {activeTab === 'Relação de Estórias' && <RelacaoEstorias />}
           {activeTab === 'Carga de Dados' && <CargaDados />}
+          {activeTab === 'Modelos' && <Modelos />}
         </div>
       </div>
       <ToastContainer position="top-right" autoClose={3000} />
