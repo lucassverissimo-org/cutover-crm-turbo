@@ -18,3 +18,25 @@ export default function Contatos() {
     />
   )
 }
+
+/*
+create table public.contatos (
+  id uuid primary key default gen_random_uuid(),
+  nome text,
+  empresa text,
+  papel_projeto text,  
+  email text,  
+  telefone text,  
+  login text,  
+  rg text,  
+  created_at timestamptz default now()
+);
+
+create policy "select" on "public"."contatos"
+as PERMISSIVE for SELECT to public
+using (true);
+
+create policy "insert" on "public"."contatos"
+as PERMISSIVE for INSERT to public
+with check (true);
+*/

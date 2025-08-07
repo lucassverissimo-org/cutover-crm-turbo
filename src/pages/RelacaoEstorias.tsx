@@ -18,3 +18,25 @@ export default function RelacaoEstorias() {
     />
   )
 }
+
+/*
+create table public.relacao_estorias (
+  id uuid primary key default gen_random_uuid(),
+  id_estoria text,
+  titulo text,
+  status text,
+  tipo text,  
+  sprint text,  
+  responsavel text,  
+  observacao text,  
+  created_at timestamptz default now()
+);
+
+create policy "select" on "public"."relacao_estorias"
+as PERMISSIVE for SELECT to public
+using (true);
+
+create policy "insert" on "public"."relacao_estorias"
+as PERMISSIVE for INSERT to public
+with check (true);
+*/

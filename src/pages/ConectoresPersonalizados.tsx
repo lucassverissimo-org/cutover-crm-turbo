@@ -1,15 +1,14 @@
 import PaginaEntidade from '../components/compartilhado/PaginaEntidade'
 
-export default function RecursosWeb() {
+export default function ConectoresPersonalizados() {
   return (
     <PaginaEntidade
-      nome_tabela="recurso_web"
-      rotulo_formulario="Recursos web"
+      nome_tabela="conectores_personalizados"
+      rotulo_formulario="Conectores Personalizados"
       rotulo_grid="Lista"
       campos={[        
         { nome: 'estoria', rotulo: 'Estória Relacionada', tipo: 'texto', obrigatorio: true },
-        { nome: 'nome_recurso', rotulo: 'Nome do Recurso Web', tipo: 'texto', obrigatorio: false },
-        { nome: 'tipo', rotulo: 'Tipo', tipo: 'texto', obrigatorio: false },
+        { nome: 'nome_conector', rotulo: 'Nome do Conector', tipo: 'texto', obrigatorio: false },        
         { nome: 'observacoes', rotulo: 'Observações', tipo: 'area', obrigatorio: false },
       ]}
     />
@@ -17,20 +16,19 @@ export default function RecursosWeb() {
 }
 
 /*
-create table public.recurso_web (
+create table public.conectores_personalizados (
   id uuid primary key default gen_random_uuid(),
   estoria text,
-  nome_recurso text,
-  tipo text,
+  nome_conector text,
   observacoes text,  
   created_at timestamptz default now()
 );
 
-create policy "select" on "public"."recurso_web"
+create policy "select" on "public"."conectores_personalizados"
 as PERMISSIVE for SELECT to public
 using (true);
 
-create policy "insert" on "public"."recurso_web"
+create policy "insert" on "public"."conectores_personalizados"
 as PERMISSIVE for INSERT to public
 with check (true);
 */

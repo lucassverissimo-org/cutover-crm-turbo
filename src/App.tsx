@@ -10,6 +10,7 @@ import Modelos from './pages/Modelos'
 import Plugins from './pages/Plugins'
 import RecursosWeb from './pages/RecursosWeb'
 import { Download, Moon, Sun } from 'lucide-react'
+import ConectoresPersonalizados from './pages/ConectoresPersonalizados'
 
 const TABS = [
   'Contatos', 
@@ -18,7 +19,8 @@ const TABS = [
   'Carga de Dados',
   'Modelos',
   'Plugins',
-  'Recursos Web'
+  'Recursos Web',
+  'Conectores Personalizados'
 ]
 
 export default function App() {
@@ -68,6 +70,7 @@ export default function App() {
           {activeTab === 'Modelos' && <Modelos />}
           {activeTab === 'Plugins' && <Plugins />}
           {activeTab === 'Recursos Web' && <RecursosWeb />}
+          {activeTab === 'Conectores Personalizados' && <ConectoresPersonalizados />}
         </div>
       </div>
       <ToastContainer position="top-right" autoClose={3000} />

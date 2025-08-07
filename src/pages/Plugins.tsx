@@ -29,4 +29,12 @@ create table public.plugins (
   modo_execucao text,
   created_at timestamptz default now()
 );
+
+create policy "select" on "public"."plugins"
+as PERMISSIVE for SELECT to public
+using (true);
+
+create policy "insert" on "public"."plugins"
+as PERMISSIVE for INSERT to public
+with check (true);
 */

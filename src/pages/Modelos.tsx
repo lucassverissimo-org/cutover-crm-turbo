@@ -16,3 +16,23 @@ export default function Modelos() {
     />
   )
 }
+
+/*
+create table public.modelos (
+  id uuid primary key default gen_random_uuid(),
+  estoria text,
+  nome_modelo text,
+  entidade text,
+  tipo text,
+  observacoes text,  
+  created_at timestamptz default now()
+);
+
+create policy "select" on "public"."modelos"
+as PERMISSIVE for SELECT to public
+using (true);
+
+create policy "insert" on "public"."modelos"
+as PERMISSIVE for INSERT to public
+with check (true);
+*/

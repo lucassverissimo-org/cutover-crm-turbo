@@ -20,3 +20,27 @@ export default function PlanoRetorno() {
     />
   )
 }
+
+/*
+create table public.plano_retorno (
+  id uuid primary key default gen_random_uuid(),
+  step text,
+  atividade text,
+  status text,  
+  dependencia text,  
+  solicitante text,  
+  executor text,  
+  inicio text,  
+  termino text,  
+  observacao text,  
+  created_at timestamptz default now()
+);
+
+create policy "select" on "public"."plano_retorno"
+as PERMISSIVE for SELECT to public
+using (true);
+
+create policy "insert" on "public"."plano_retorno"
+as PERMISSIVE for INSERT to public
+with check (true);
+*/
