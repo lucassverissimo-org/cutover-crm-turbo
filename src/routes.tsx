@@ -7,6 +7,7 @@ import Modelos from './pages/Modelos'
 import Plugins from './pages/Plugins'
 import RecursosWeb from './pages/RecursosWeb'
 import ConectoresPersonalizados from './pages/ConectoresPersonalizados'
+import ReferenciasConexao from './pages/ReferenciasConexao'
 
 const routes = [
   { path: '/contatos', label: 'Contatos', element: <Contatos /> },
@@ -17,6 +18,7 @@ const routes = [
   { path: '/plugins', label: 'Plugins', element: <Plugins /> },
   { path: '/recursos-web', label: 'Recursos Web', element: <RecursosWeb /> },
   { path: '/conectores-personalizados', label: 'Conectores Personalizados', element: <ConectoresPersonalizados /> },
+  { path: '/referencias-conexao', label: 'Referências de Conexão', element: <ReferenciasConexao /> },
 ]
 
 export const AppRoutes = () => (

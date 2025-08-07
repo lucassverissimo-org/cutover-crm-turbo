@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import FormularioGenerico, { type CampoFormulario } from './FormularioGenerico'
 import TabelaGenerica, { type TabelaGenericaRef } from './TabelaGenerica'
 import { supabase } from '../../supabase/client'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronDown, ChevronUp, Plus } from 'lucide-react'
 
 interface PaginaEntidadeProps {
   nome_tabela: string
@@ -72,12 +72,8 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
             }}
             className="text-sm px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 transition "
           >
-            {formAberto ? (
-              <div className="flex justify-between items-center gap-2 ">Fechar <ChevronUp /> </div>
-            ) : (
-              <div className="flex justify-between items-center gap-2 ">Novo <ChevronDown /> </div>
-            )
-            }
+            <div className="flex justify-between items-center gap-2 "><Plus /> {formAberto ? <ChevronUp /> : <ChevronDown />  } </div>            
+            
           </button>
         </div>
 

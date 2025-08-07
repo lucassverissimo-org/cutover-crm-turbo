@@ -1,9 +1,11 @@
 import { BrowserRouter, Link, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { Download, Moon, Sun } from 'lucide-react'
+import { Cog, Download, Moon, Sun } from 'lucide-react'
 import { AppRoutes, AppTabs } from './routes'
 import useTheme from './hooks/useTheme'
 import { exportAllDataToXLSX } from './utils/exportXLS'
+import { useState } from 'react'
+import SettingsModal from './components/compartilhado/SettingsModal'
 
 function Tabs() {
   const location = useLocation()
@@ -28,7 +30,7 @@ function Tabs() {
 
 export default function App() {
   const { theme, toggleTheme } = useTheme()
-
+  const [showSettings, setShowSettings] = useState(false)
   return (
     <BrowserRouter>
       <main className="min-h-screen bg-background dark:bg-gray-900 text-gray-900 dark:text-white p-6">
@@ -43,6 +45,13 @@ export default function App() {
                 <Download size={20} /> Exportar
               </button>
               <button
+                onClick={() => setShowSettings(true)}
+                className="p-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+                title="Abrir configurações"
+              >
+                <Cog size={20} />
+              </button>
+              <button
                 onClick={toggleTheme}
                 className="px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-800 text-sm font-medium dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 transition"
               >
@@ -53,6 +62,7 @@ export default function App() {
 
           <Tabs />
           <AppRoutes />
+          {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
         </div>
         <ToastContainer position="top-right" autoClose={3000} />
       </main>
