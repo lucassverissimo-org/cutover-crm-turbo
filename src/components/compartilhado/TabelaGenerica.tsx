@@ -62,12 +62,10 @@ const TabelaGenerica = forwardRef<TabelaGenericaRef, TabelaGenericaProps>(
           {onExcluirMultiplos && selecionados.size > 0 && (
             <button
               onClick={() => onExcluirMultiplos(Array.from(selecionados))}
-              className="text-sm px-3 py-1 rounded bg-red-100 text-black hover:bg-red-300 transition"
+              className="flex justify-between items-center gap-2 text-sm px-3 py-1 rounded bg-red-100 text-black hover:bg-red-300 transition"
             >
-              <div className="flex justify-between items-center gap-2">
                 <Trash2 className="w-4 h-4 text-red-600" />  
-                <label>Excluir Selecionados ({selecionados.size})</label>
-              </div>
+                Excluir Selecionados ({selecionados.size})              
             </button>
           )}
         </div>
