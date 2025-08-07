@@ -34,7 +34,7 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
     }
 
     setDadosEdicao(null)
-    setFormAberto(false)
+    //setFormAberto(false)
     refTabela.current?.recarregar()
   }
 
@@ -46,6 +46,13 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
   const deletar = async (registro: any) => {
     if (!confirm('Deseja realmente deletar?')) return
     const { error } = await supabase!.from(nome_tabela).delete().eq('id', registro.id)
+    if (error) throw error
+    refTabela.current?.recarregar()
+  }
+
+  const deletarMultiplos = async (ids: string[]) => {
+    if (!confirm(`Deseja deletar ${ids.length} registros?`)) return
+    const { error } = await supabase!.from(nome_tabela).delete().in('id', ids)
     if (error) throw error
     refTabela.current?.recarregar()
   }
@@ -79,6 +86,7 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
           ref={refTabela}
           onEditar={editar}
           onDeletar={deletar}
+          onExcluirMultiplos={deletarMultiplos}
         />
       </div>
     </div>
