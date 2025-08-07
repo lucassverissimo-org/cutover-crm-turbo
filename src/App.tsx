@@ -7,13 +7,17 @@ import { exportAllDataToXLSX } from './utils/exportXLS'
 import RelacaoEstorias from './pages/RelacaoEstorias'
 import CargaDados from './pages/CargaDados'
 import Modelos from './pages/Modelos'
+import Plugins from './pages/Plugins'
+import RecursosWeb from './pages/RecursosWeb'
 
 const TABS = [
   'Contatos', 
   'Plano de Retorno', 
   'Relação de Estórias',
   'Carga de Dados',
-  'Modelos'
+  'Modelos',
+  'Plugins',
+  'Recursos Web'
 ]
 
 export default function App() {
@@ -61,6 +65,8 @@ export default function App() {
           {activeTab === 'Relação de Estórias' && <RelacaoEstorias />}
           {activeTab === 'Carga de Dados' && <CargaDados />}
           {activeTab === 'Modelos' && <Modelos />}
+          {activeTab === 'Plugins' && <Plugins />}
+          {activeTab === 'Recursos Web' && <RecursosWeb />}
         </div>
       </div>
       <ToastContainer position="top-right" autoClose={3000} />
