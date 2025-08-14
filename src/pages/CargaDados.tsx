@@ -18,8 +18,9 @@ export default function CargaDados() {
 }
 
 /*
-create table public.contatos (
+create table public.carga_dados (
   id uuid primary key default gen_random_uuid(),
+  id_release uuid references public.releases(id) on delete cascade, 
   estoria_relacionada text,
   entidade text,
   total_registros text,  
@@ -28,11 +29,11 @@ create table public.contatos (
   created_at timestamptz default now()
 );
 
-create policy "select" on "public"."contatos"
+create policy "select" on "public"."carga_dados"
 as PERMISSIVE for SELECT to public
 using (true);
 
-create policy "insert" on "public"."contatos"
+create policy "insert" on "public"."carga_dados"
 as PERMISSIVE for INSERT to public
 with check (true);
 */

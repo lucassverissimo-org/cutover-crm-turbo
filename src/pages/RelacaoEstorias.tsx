@@ -22,6 +22,7 @@ export default function RelacaoEstorias() {
 /*
 create table public.relacao_estorias (
   id uuid primary key default gen_random_uuid(),
+  id_release uuid references public.releases(id) on delete cascade, 
   id_estoria text,
   titulo text,
   status text,

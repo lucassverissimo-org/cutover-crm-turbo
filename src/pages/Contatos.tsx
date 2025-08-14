@@ -22,6 +22,7 @@ export default function Contatos() {
 /*
 create table public.contatos (
   id uuid primary key default gen_random_uuid(),
+  id_release uuid references public.releases(id) on delete cascade,
   nome text,
   empresa text,
   papel_projeto text,  

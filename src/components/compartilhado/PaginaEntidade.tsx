@@ -4,6 +4,7 @@ import FormularioGenerico, { type CampoFormulario } from './FormularioGenerico'
 import TabelaGenerica, { type TabelaGenericaRef } from './TabelaGenerica'
 import { supabase } from '../../supabase/client'
 import { ChevronDown, ChevronUp, Plus } from 'lucide-react'
+import { useRelease } from '../../context/ReleaseContext'
 
 interface PaginaEntidadeProps {
   nome_tabela: string
@@ -17,7 +18,7 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
   const [dadosEdicao, setDadosEdicao] = useState<Record<string, string> | null>(null)
   const [formAberto, setFormAberto] = useState(false)
   const [estadoFormAnterior, setEstadoFormAnterior] = useState(false)
-
+  const { releaseSelecionada } = useRelease()
   const colunas = campos.map(c => ({
     chave: c.nome,
     titulo: c.rotulo,
@@ -26,13 +27,14 @@ export default function PaginaEntidade({ nome_tabela, rotulo_formulario, rotulo_
 
   const salvar = async (dados: Record<string, string>) => {
     if (supabase == null) return;
-
+    const isRelease = nome_tabela === 'releases'
+    const payload = isRelease ? dados : { ...dados, id_release: releaseSelecionada!.id }
     if (dados.id) {
-      const { error } = await supabase.from(nome_tabela).update(dados).eq('id', dados.id)
+      const { error } = await supabase.from(nome_tabela).update(payload).eq('id', dados.id)
       if (error) throw error
       setFormAberto(estadoFormAnterior)
     } else {
-      const { error } = await supabase.from(nome_tabela).insert(dados)
+      const { error } = await supabase.from(nome_tabela).insert(payload)
       if (error) throw error
     }
 

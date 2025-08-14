@@ -18,6 +18,7 @@ export default function ConectoresPersonalizados() {
 /*
 create table public.conectores_personalizados (
   id uuid primary key default gen_random_uuid(),
+  id_release uuid references public.releases(id) on delete cascade, 
   estoria text,
   nome_conector text,
   observacoes text,  

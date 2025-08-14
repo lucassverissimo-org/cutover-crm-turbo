@@ -19,6 +19,7 @@ export default function ReferenciasConexao() {
 /*
 create table public.referencias_conexao (
   id uuid primary key default gen_random_uuid(),
+  id_release uuid references public.releases(id) on delete cascade, 
   estoria text,
   nome_referencia_conexao text,
   nome_logico text,

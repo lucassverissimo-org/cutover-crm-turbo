@@ -24,6 +24,7 @@ export default function PlanoRetorno() {
 /*
 create table public.plano_retorno (
   id uuid primary key default gen_random_uuid(),
+  id_release uuid references public.releases(id) on delete cascade, 
   step text,
   atividade text,
   status text,  

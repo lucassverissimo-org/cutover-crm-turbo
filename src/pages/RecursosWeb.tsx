@@ -19,6 +19,7 @@ export default function RecursosWeb() {
 /*
 create table public.recurso_web (
   id uuid primary key default gen_random_uuid(),
+  id_release uuid references public.releases(id) on delete cascade, 
   estoria text,
   nome_recurso text,
   tipo text,

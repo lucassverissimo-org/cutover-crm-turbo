@@ -2,6 +2,7 @@ import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
 import { supabase } from '../../supabase/client'
 import { dataExtenso, dataFormatada } from '../../utils/formatarData'
 import { Edit3, RefreshCw, Trash2 } from 'lucide-react'
+import { useRelease } from '../../context/ReleaseContext'
 
 export type TabelaGenericaRef = {
   recarregar: () => void
@@ -25,13 +26,44 @@ const TabelaGenerica = forwardRef<TabelaGenericaRef, TabelaGenericaProps>(
   ({ tabela, colunas, onEditar, onDeletar, onExcluirMultiplos }, ref) => {
     const [registros, setRegistros] = useState<any[]>([])
     const [selecionados, setSelecionados] = useState<Set<string>>(new Set())
-
+    const { releaseSelecionada } = useRelease()
+    
     const buscarDados = async () => {
       if (supabase == null) return
-      const { data } = await supabase.from(tabela).select('*').order('created_at',{ascending:true})
+      let query = supabase.from(tabela).select('*')
+
+      if (tabela !== 'releases') {
+        if (!releaseSelecionada?.id) { // sem release ainda, zera a tabela
+          setRegistros([])
+          setSelecionados(new Set())
+          return
+        }
+        query = query.eq('id_release', releaseSelecionada.id)
+      }
+
+      query = query.order('created_at', { ascending: true })
+      const { data } = await query
       setRegistros(data || [])
       setSelecionados(new Set())
     }
+    useEffect(() => { buscarDados() }, [releaseSelecionada?.id, tabela])
+    // const buscarDados = async () => {
+    //   if (supabase == null) return
+
+    //   let query = supabase.from(tabela).select('*')
+      
+    //   if (tabela !== 'releases') {
+    //     query = query.eq('id_release', releaseSelecionada!.id)
+    //   }
+
+    //   query = query.order('created_at',{ascending:true})
+      
+    //   const { data } = await query
+      
+    //   // const { data } = await supabase.from(tabela).select('*').eq('id_release', releaseSelecionada!.id).order('created_at',{ascending:true})
+    //   setRegistros(data || [])
+    //   setSelecionados(new Set())
+    // }
 
     useImperativeHandle(ref, () => ({ recarregar: buscarDados }))
     useEffect(() => { buscarDados() }, [])

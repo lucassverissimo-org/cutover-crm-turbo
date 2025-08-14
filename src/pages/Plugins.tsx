@@ -21,6 +21,7 @@ export default function Plugins() {
 /*
 create table public.plugins (
   id uuid primary key default gen_random_uuid(),
+  id_release uuid references public.releases(id) on delete cascade, 
   estoria text,
   nome_plugin text,
   mensagem_sdk text,
