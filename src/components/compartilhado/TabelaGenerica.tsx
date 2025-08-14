@@ -47,24 +47,7 @@ const TabelaGenerica = forwardRef<TabelaGenericaRef, TabelaGenericaProps>(
       setSelecionados(new Set())
     }
     useEffect(() => { buscarDados() }, [releaseSelecionada?.id, tabela])
-    // const buscarDados = async () => {
-    //   if (supabase == null) return
-
-    //   let query = supabase.from(tabela).select('*')
-      
-    //   if (tabela !== 'releases') {
-    //     query = query.eq('id_release', releaseSelecionada!.id)
-    //   }
-
-    //   query = query.order('created_at',{ascending:true})
-      
-    //   const { data } = await query
-      
-    //   // const { data } = await supabase.from(tabela).select('*').eq('id_release', releaseSelecionada!.id).order('created_at',{ascending:true})
-    //   setRegistros(data || [])
-    //   setSelecionados(new Set())
-    // }
-
+    
     useImperativeHandle(ref, () => ({ recarregar: buscarDados }))
     useEffect(() => { buscarDados() }, [])
 
